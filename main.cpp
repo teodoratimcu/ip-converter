@@ -196,7 +196,6 @@ double resolve_equation(int option, int measure_1, int measure_2, double value) 
             if (measure_2 == LUNGIME_METRI){
                 return value;
             }
-            }
             else if (measure_2 == LUNGIME_KILOMETRI) {
                 return value / 1000;
             }
@@ -220,7 +219,7 @@ double resolve_equation(int option, int measure_1, int measure_2, double value) 
                 else if( measure_2 == LUNGIME_MILIMETRI){
                     return value * 1000000;
                 }
-                }
+        }
         else if(measure_1  ==LUNGIME_CENTIMETRI){
                 if(measure_2 == LUNGIME_CENTIMETRI){
                         return value;
@@ -234,7 +233,7 @@ double resolve_equation(int option, int measure_1, int measure_2, double value) 
                 else if( measure_2 == LUNGIME_MILIMETRI){
                     return value * 10;
                 }
-                }
+            }
         else if(measure_1  ==LUNGIME_MILIMETRI){
                 if(measure_2 == LUNGIME_MILIMETRI){
                         return value;
@@ -250,7 +249,6 @@ double resolve_equation(int option, int measure_1, int measure_2, double value) 
                 }
                 }
     }
-
    else if (option == ARIE){
         if(measure_1 == ARIE_METRI){
             if (measure_2 == ARIE_METRI){
@@ -827,7 +825,8 @@ double resolve_equation(int option, int measure_1, int measure_2, double value) 
             }
         }
 
-    }
+    return 0;
+}
 
 
 
@@ -839,7 +838,7 @@ int main()
 
     while (true) {
         int option = get_user_option();
-        system("cls");
+        //system("cls");
         int result = print_user_option_measurements(option);
 
         if (result == -1) {
