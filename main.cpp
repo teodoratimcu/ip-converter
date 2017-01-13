@@ -78,6 +78,11 @@ enum MASURI_DENSITATE{
     DENSITATE_GM,
     DENSITATE_GL
 };
+enum MASURI_CONSUMCOMBUSTIBIL{
+    CONSUMCOMBUSTIBIL_L/100KM = 1,
+    CONSUMCOMBUSTIBIL_MILE/GALON,
+    CONSUMCOMBUSTIBIL_KM/L
+};
 
 void print_menu() {
     cout <<endl;
@@ -336,6 +341,7 @@ int print_user_option_measurements(int option) {
             cout << "\t1. bar" << endl;
             cout << "\t2. PSI" << endl;
             cout << endl;
+            break;
         case DENSITATE:
             cout << "\tDensitate:" << endl;
             cout << "\t1. kg/m" << endl;
@@ -413,6 +419,9 @@ double resolve_equation(int option, int measure_1, int measure_2, double value) 
                     return value / 10;
                 }
                 }
+        else {
+            return -1;
+        }
     }
    else if (option == ARIE){
         if(measure_1 == ARIE_METRI){
@@ -432,8 +441,7 @@ double resolve_equation(int option, int measure_1, int measure_2, double value) 
             return value / 10000;
         }
 
-
-        }
+}
         else if (measure_1 == ARIE_CENTIMETRI){
             if(measure_2 == ARIE_CENTIMETRI){
                 return value;
@@ -505,6 +513,7 @@ double resolve_equation(int option, int measure_1, int measure_2, double value) 
                 return value;
     }
     }
+    return -1;
    }
     else if (option == VOLUM){
         if(measure_1 == VOLUM_METRI){
@@ -633,6 +642,7 @@ double resolve_equation(int option, int measure_1, int measure_2, double value) 
                 return value * 100;
             }
         }
+        return -1;
     }
         else if(option == TIMP){
             if(measure_1 == TIMP_SECUNDA){
@@ -720,6 +730,7 @@ double resolve_equation(int option, int measure_1, int measure_2, double value) 
                     return value / 10;
                 }
             }
+            return -1;
         }
         else if(option == TEMPERATURA){
             if(measure_1 == TEMPERATURA_CELSIUS){
@@ -778,6 +789,7 @@ double resolve_equation(int option, int measure_1, int measure_2, double value) 
                     return value * 5/9;
                 }
             }
+            return -1;
 
         }
         else if(option == MASA){
@@ -837,6 +849,7 @@ double resolve_equation(int option, int measure_1, int measure_2, double value) 
                 return value * 1000000000;
             }
           }
+          return -1;
         }
         else if (option == PRESIUNE) {
             if(measure_1 == PRESIUNE_BAR){
@@ -855,6 +868,7 @@ double resolve_equation(int option, int measure_1, int measure_2, double value) 
                     return value * 0.0689476;
                 }
             }
+            return -1;
         }
         else if(option == VITEZA){
             if(measure_1 == VITEZA_KMH){
@@ -890,6 +904,7 @@ double resolve_equation(int option, int measure_1, int measure_2, double value) 
                     return value * 0.44704;
                 }
             }
+            return -1;
 
         }
         else if(option == ENERGIE){
@@ -928,6 +943,7 @@ double resolve_equation(int option, int measure_1, int measure_2, double value) 
                     return value / 1000;
                 }
             }
+            return -1;
 
         }
 
@@ -988,9 +1004,10 @@ double resolve_equation(int option, int measure_1, int measure_2, double value) 
                     return value;
                 }
             }
+            return -1;
         }
 
-    return 0;
+    return -1;
 }
 
 
@@ -998,12 +1015,11 @@ double resolve_equation(int option, int measure_1, int measure_2, double value) 
 int main()
 
 {
-    std::cout.precision(9);
+    std::cout.precision(15);
     print_menu();
 
     while (true) {
         int option = get_user_option();
-        //system("cls");
         int result = print_user_option_measurements(option);
 
         if (result == -1) {
@@ -1017,8 +1033,14 @@ int main()
             int measure_1 = get_user_measure();
             int measure_2 = get_user_measure();
             double value = get_user_value();
+            double result = resolve_equation(option, measure_1, measure_2, value);
+            if (result == -1) {
+                cout << "\n\t\tOptiune invalida! Incercati din nou!\n" << endl;
+                print_menu();
+                continue;
+            }
 
-            cout << "\t\tRezultat: " << value << " " << get_measure_string(option, measure_1) << " = " << resolve_equation(option, measure_1, measure_2, value) << " " <<get_measure_string(option, measure_2) << " " << endl << std::fixed;
+            cout << "\t\tRezultat: " << value << " " << get_measure_string(option, measure_1) << " = " << result << " " <<get_measure_string(option, measure_2) << " " << endl;
             cout << endl;
         }
     }
