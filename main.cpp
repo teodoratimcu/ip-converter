@@ -79,9 +79,9 @@ enum MASURI_DENSITATE{
     DENSITATE_GL
 };
 enum MASURI_CONSUMCOMBUSTIBIL{
-    CONSUMCOMBUSTIBIL_L/100KM = 1,
-    CONSUMCOMBUSTIBIL_MILE/GALON,
-    CONSUMCOMBUSTIBIL_KM/L
+    CONSUMCOMBUSTIBIL_L100km = 1,
+    CONSUMCOMBUSTIBIL_MILEGALON,
+    CONSUMCOMBUSTIBIL_KML
 };
 
 void print_menu() {
@@ -245,6 +245,17 @@ char* get_measure_string(int option, int measure) {
             return "kg/m";
         }
     }
+    else if(option == CONSUMCOMBUSTIBIL){
+        if(measure == CONSUMCOMBUSTIBIL_L100km){
+            return "l/100km";
+        }
+        else if(measure == CONSUMCOMBUSTIBIL_KML){
+            return "km/l";
+        }
+        else if(measure == CONSUMCOMBUSTIBIL_MILEGALON){
+            return "mile/galon";
+        }
+    }
 
     return "";
 }
@@ -299,8 +310,8 @@ int print_user_option_measurements(int option) {
             break;
         case TIMP:
             cout << "\tTimp:" << endl;
-            cout << "\t1. s" << endl;
-            cout << "\t2. m" << endl;
+            cout << "\t1. sec" << endl;
+            cout << "\t2. min" << endl;
             cout << "\t3. h" << endl;
             cout << "\t4. ds" << endl;
             cout << "\t5. cs" << endl;
@@ -349,6 +360,12 @@ int print_user_option_measurements(int option) {
             cout << "\t3. g/m" << endl;
             cout << "\t4. g/l" << endl;
             cout << endl;
+            break;
+        case CONSUMCOMBUSTIBIL:
+            cout << "\tConsum combustibil:" << endl;
+            cout << "\t1. l/100km" << endl;
+            cout << "\t2. mile/galon" << endl;
+            cout << "\t3. km/l" << endl;
             break;
         case EXIT:
             return -1;
@@ -453,7 +470,7 @@ double resolve_equation(int option, int measure_1, int measure_2, double value) 
             return value * 10000000000;
         }
         else if(measure_2 == ARIE_MILIMETRI){
-            return value*10;
+            return value * 100;
         }
         else if(measure_2 == ARIE_HA){
             return value * 100000000;
@@ -510,7 +527,7 @@ double resolve_equation(int option, int measure_1, int measure_2, double value) 
             return value / 100;
         }
         else if(measure_2 == ARIE_HA){
-                return value;
+                return value * 10000000000;
     }
     }
     return -1;
@@ -553,7 +570,7 @@ double resolve_equation(int option, int measure_1, int measure_2, double value) 
                     return value / 1000;
                 }
                 else if ( measure_2 == VOLUM_DECILITRI){
-                    return value;
+                    return value / 100;
                 }
                 else if (measure_2 == VOLUM_MILILITRI){
                     return value;
@@ -879,7 +896,7 @@ double resolve_equation(int option, int measure_1, int measure_2, double value) 
                     return (value * 1000) / 3600;
                 }
                 else if(measure_2 == VITEZA_MPH){
-                    return value * 0,62;
+                    return value * 0.621371;
                 }
             }
             else if(measure_1 == VITEZA_MS){
@@ -1002,6 +1019,42 @@ double resolve_equation(int option, int measure_1, int measure_2, double value) 
                 }
                 else if(measure_2 == DENSITATE_KGM){
                     return value;
+                }
+            }
+            return -1;
+        }
+        else if(option == CONSUMCOMBUSTIBIL){
+            if(measure_1 == CONSUMCOMBUSTIBIL_L100km){
+                if(measure_2 ==CONSUMCOMBUSTIBIL_L100km){
+                    return value;
+                }
+                else if(measure_2 == CONSUMCOMBUSTIBIL_KML){
+                    return 100 / value;
+                }
+                else if (measure_2 == CONSUMCOMBUSTIBIL_MILEGALON){
+                    return 282.4809363 / value;
+                }
+            }
+            else if(measure_1 == CONSUMCOMBUSTIBIL_KML){
+                if(measure_2 == CONSUMCOMBUSTIBIL_KML){
+                    return value;
+                }
+                else if(measure_2 == CONSUMCOMBUSTIBIL_L100km){
+                    return 100 / value;
+                }
+                else if(measure_2 == CONSUMCOMBUSTIBIL_MILEGALON){
+                    return value * 2.8248094;
+                }
+            }
+            else if(measure_1 == CONSUMCOMBUSTIBIL_MILEGALON){
+                if(measure_2 == CONSUMCOMBUSTIBIL_MILEGALON){
+                    return value;
+                }
+                else if(measure_2 == CONSUMCOMBUSTIBIL_L100km){
+                    return 282.4809363 / value;
+                }
+                else if(measure_2 == CONSUMCOMBUSTIBIL_KML){
+                    return value * 0.3540062;
                 }
             }
             return -1;
