@@ -1,5 +1,4 @@
 #include <iostream>
-#include <stdlib.h>
 using namespace std;
 
 enum CATEGORII {
@@ -114,6 +113,133 @@ char* get_measure_string(int option, int measure) {
             return "mm";
         }
     }
+    else if(option == ARIE){
+        if(measure == ARIE_METRI){
+            return "m";
+        }
+        else if(measure == ARIE_CENTIMETRI){
+            return "cm";
+        }
+        else if(measure == ARIE_MILIMETRI){
+            return "mm";
+        }
+        else if(measure == ARIE_KILOMETRI){
+            return "km";
+        }
+        else if(measure == ARIE_HA){
+            return "ha";
+        }
+    }
+    else if(option == VOLUM){
+        if(measure == VOLUM_METRI){
+            return "m";
+        }
+        else if (measure == VOLUM_CENTIMETRI){
+            return "cm";
+        }
+        else if(measure == VOLUM_DECIMETRI){
+            return "dm";
+        }
+        else if(measure == VOLUM_LITRI){
+            return "l";
+        }
+        else if(measure == VOLUM_DECILITRI){
+            return "dl";
+        }
+        else if(measure == VOLUM_MILILITRI){
+            return "ml";
+        }
+
+    }
+    else if(option == TIMP){
+        if(measure == TIMP_SECUNDA){
+            return "sec";
+        }
+        else if(measure == TIMP_MINUTE){
+            return "min";
+        }
+        else if(measure == TIMP_ORA){
+            return "h";
+        }
+        else if(measure == TIMP_DECISECUNDA){
+            return "ds";
+        }
+        else if(measure == TIMP_CENTISECUNDA){
+            return "cs";
+        }
+    }
+    else if(option == VITEZA){
+        if(measure == VITEZA_KMH){
+            return "km/h";
+        }
+        else if(measure == VITEZA_MPH){
+            return "mph";
+        }
+        else if(measure == VITEZA_MS){
+            return "m/s";
+        }
+    }
+    else if(option == TEMPERATURA){
+        if(measure == TEMPERATURA_CELSIUS){
+            return "C";
+        }
+        else if(measure == TEMPERATURA_KELVIN){
+            return "K";
+        }
+        else if(measure == TEMPERATURA_Fahrenheit){
+            return "F";
+        }
+        else if(measure == TEMPERATURA_RANKINE){
+            return "R";
+        }
+    }
+    else if(option == MASA){
+        if(measure == MASA_GRAME){
+            return "g";
+        }
+        else if(measure == MASA_KILOGRAME){
+            return "kg";
+        }
+        else if(measure == MASA_MILIGRAME){
+            return "mg";
+        }
+        else if(measure == MASA_TONE){
+            return "t";
+        }
+    }
+    else if(option == ENERGIE){
+        if(measure == ENERGIE_J){
+            return "J";
+        }
+        else if(measure == ENERGIE_KJ){
+            return "KJ";
+        }
+        else if(measure == ENERGIE_WS){
+            return "W*s";
+        }
+    }
+    else if(option == PRESIUNE){
+        if(measure == PRESIUNE_BAR){
+            return "bar";
+        }
+        else if(measure == PRESIUNE_PSI){
+            return "PSI";
+        }
+    }
+    else if(option == DENSITATE){
+        if(measure == DENSITATE_GL){
+            return "g/l";
+        }
+        else if(measure == DENSITATE_GM){
+            return "g/m";
+        }
+        else if(measure == DENSITATE_KGL){
+            return "kg/l";
+        }
+        else if(measure == DENSITATE_KGM){
+            return "kg/m";
+        }
+    }
 
     return "";
 }
@@ -154,6 +280,7 @@ int print_user_option_measurements(int option) {
             cout << "\t3. mm" << endl;
             cout << "\t4. km" << endl;
             cout << "\t5. ha" << endl;
+            cout << endl;
             break;
         case VOLUM:
             cout << "\tVolum:" << endl;
@@ -163,6 +290,7 @@ int print_user_option_measurements(int option) {
             cout << "\t4. l" << endl;
             cout << "\t5. dl" << endl;
             cout << "\t6. ml" << endl;
+            cout <<  endl;
             break;
         case TIMP:
             cout << "\tTimp:" << endl;
@@ -170,14 +298,51 @@ int print_user_option_measurements(int option) {
             cout << "\t2. m" << endl;
             cout << "\t3. h" << endl;
             cout << "\t4. ds" << endl;
-            cout << "\t5. " << endl;
+            cout << "\t5. cs" << endl;
+            cout <<  endl;
             break;
+        case VITEZA:
+            cout << "\tViteza:" << endl;
+            cout << "\t1. km/h" << endl;
+            cout << "\t2. mph" << endl;
+            cout << "\t3. m/s" << endl;
+            cout << endl;
+            break;
+        case TEMPERATURA:
+            cout << "\tTemperatura:" << endl;
+            cout << "\t1. Celsius" << endl;
+            cout << "\t2. Kelvin" << endl;
+            cout << "\t3. Fahrenheit" << endl;
+            cout << "\t4. Rankine" << endl;
+            cout << endl;
+            break;
+        case MASA:
+            cout << "\tMasa:" << endl;
+            cout << "\t1. g" << endl;
+            cout << "\t2. kg" << endl;
+            cout << "\t3. mg" << endl;
+            cout << "\t4. t" << endl;
+            cout << endl;
+            break;
+        case ENERGIE:
+            cout << "\tEnergie:" << endl;
+            cout << "\t1. J" << endl;
+            cout << "\t2. KJ" << endl;
+            cout << "\t3. W*s" << endl;
+            cout << endl;
+            break;
+        case PRESIUNE:
+            cout << "\tPresiune:" << endl;
+            cout << "\t1. bar" << endl;
+            cout << "\t2. PSI" << endl;
+            cout << endl;
         case DENSITATE:
             cout << "\tDensitate:" << endl;
             cout << "\t1. kg/m" << endl;
             cout << "\t2. kg/l" << endl;
             cout << "\t3. g/m" << endl;
             cout << "\t4. g/l" << endl;
+            cout << endl;
             break;
         case EXIT:
             return -1;
@@ -206,7 +371,7 @@ double resolve_equation(int option, int measure_1, int measure_2, double value) 
                 return value * 1000;
             }
         }
-        else if(measure_1  ==LUNGIME_KILOMETRI){
+        else if(measure_1  == LUNGIME_KILOMETRI){
                 if(measure_2 == LUNGIME_KILOMETRI){
                         return value;
                 }
@@ -234,7 +399,7 @@ double resolve_equation(int option, int measure_1, int measure_2, double value) 
                     return value * 10;
                 }
             }
-        else if(measure_1  ==LUNGIME_MILIMETRI){
+        else if(measure_1  == LUNGIME_MILIMETRI){
                 if(measure_2 == LUNGIME_MILIMETRI){
                         return value;
                 }
@@ -853,7 +1018,7 @@ int main()
             int measure_2 = get_user_measure();
             double value = get_user_value();
 
-            cout << "\t\tRezultat: " << value << " " << get_measure_string(option, measure_1) << " = " << resolve_equation(option, measure_1, measure_2, value) << get_measure_string(option, measure_2) << " " << endl << std::fixed;
+            cout << "\t\tRezultat: " << value << " " << get_measure_string(option, measure_1) << " = " << resolve_equation(option, measure_1, measure_2, value) << " " <<get_measure_string(option, measure_2) << " " << endl << std::fixed;
             cout << endl;
         }
     }
