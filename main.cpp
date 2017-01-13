@@ -874,7 +874,7 @@ double resolve_equation(int option, int measure_1, int measure_2, double value) 
                     return value;
                 }
                 else if(measure_2 == PRESIUNE_PSI){
-                    return value * 14.5038;
+                    return value * 14.5037738;
                 }
             }
             else if(measure_1 == PRESIUNE_PSI){
@@ -882,7 +882,7 @@ double resolve_equation(int option, int measure_1, int measure_2, double value) 
                     return value;
                 }
                 else if(measure_2 == PRESIUNE_BAR){
-                    return value * 0.0689476;
+                    return value *  0.0689475729;
                 }
             }
             return -1;
